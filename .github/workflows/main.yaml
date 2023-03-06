@@ -27,8 +27,6 @@ jobs:
       - name: Configure Docker
         run: gcloud auth configure-docker
         
-        
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
@@ -39,8 +37,9 @@ jobs:
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v0.3.0
         with:
-          service_name: ${{ env.SERVICE_NAME }}
+          service: ${{ env.SERVICE_NAME }}
+          image: eu.gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
           region: ${{ env.REGION }}
-          image_uri: eu.gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           revision_name: ${{ github.sha }}
+
