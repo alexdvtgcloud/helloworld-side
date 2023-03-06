@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@vo.3.0
         with:
           version: 'latest'
           project_id: ${{ secrets.GCP_PROJECT_ID }}
