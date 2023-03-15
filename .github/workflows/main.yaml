@@ -10,7 +10,7 @@ env:
   SERVICE_NAME: helloworld-php
   REGION: europe-west1
   ARTIFACT_REGISTRY_HOSTNAME: eu.artifactregistry.googleapis.com
-  ARTIFACT_REGISTRY_REPOSITORY: docker
+  ARTIFACT_REGISTRY_REPOSITORY: cloud-run-source-deploy
 
 jobs:
   deploy:
