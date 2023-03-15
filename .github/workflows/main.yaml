@@ -32,13 +32,13 @@ jobs:
         with:
           context: .
           push: true
-          tags:  europe-west1-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
+          tags:  eu.gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
 
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v0.3.0
         with:
           service: ${{ env.SERVICE_NAME }}
-          image:  europe-west1-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
+          image:  eu.gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
           region: ${{ env.REGION }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           revision_name: ${{ github.sha }}
