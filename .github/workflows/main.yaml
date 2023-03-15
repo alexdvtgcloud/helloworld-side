@@ -8,9 +8,7 @@ on:
 env:
   PROJECT_ID: pr-sandboxapigee-alex
   SERVICE_NAME: helloworld-php
-  REGION: europe-west1
-  ARTIFACT_REGISTRY_HOSTNAME: eu.artifactregistry.googleapis.com
-  ARTIFACT_REGISTRY_REPOSITORY: cloud-run-source-deploy
+  REGION: europe-west1 
 
 jobs:
   deploy:
@@ -26,22 +24,21 @@ jobs:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
 
-      - name: Configure Docker for Artifact Registry
-        run: |
-          gcloud auth configure-docker ${{ env.ARTIFACT_REGISTRY_HOSTNAME }}
-
+      - name: Configure Docker
+        run: gcloud auth configure-docker
+        
       - name: Build and push Docker image
-        run: |
-          docker build -t ${{ env.SERVICE_NAME }}:${{ github.sha }} .
-          docker tag ${{ env.SERVICE_NAME }}:${{ github.sha }} ${{ env.ARTIFACT_REGISTRY_HOSTNAME }}/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REGISTRY_REPOSITORY }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
-          docker push ${{ env.ARTIFACT_REGISTRY_HOSTNAME }}/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REGISTRY_REPOSITORY }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags:  eu.gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
 
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v0.3.0
         with:
           service: ${{ env.SERVICE_NAME }}
-          image: ${{ env.ARTIFACT_REGISTRY_HOSTNAME }}/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REGISTRY_REPOSITORY }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
+          image:  eu.gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
           region: ${{ env.REGION }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           revision_name: ${{ github.sha }}
-
