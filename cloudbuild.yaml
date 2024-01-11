@@ -5,4 +5,4 @@ steps:
 
   # Subir la imagen a Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/test/tu-imagen:latest']
+    args: ['push', 'europe-west1-docker.pkg.dev/$PROJECT_ID/test/tu-imagen:latest']
