@@ -1,7 +1,7 @@
 steps:
   # Construir la imagen del contenedor
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/tu-repo/tu-imagen:latest', '.']
+    args: ['build', '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/tu-repo/tu-imagen:latest', '.']
 
   # Subir la imagen a Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
