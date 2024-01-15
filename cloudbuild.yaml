@@ -12,6 +12,6 @@ steps:
       - run
       - deploy
       - test-serviceee
-      - --image='europe-west1-docker.pkg.dev/$PROJECT_ID/test/tu-imagen:latest'
+      - --image= europe-west1-docker.pkg.dev/$PROJECT_ID/test/tu-imagen:latest
       - --region=europe-west1
       - --platform=managed
