@@ -11,7 +11,12 @@ steps:
     args:
       - run
       - deploy
-      - $SERVICE_NAME1
+      - ${_SERVICE_NAME}
       - --image=europe-west1-docker.pkg.dev/pr-sandboxapigee-alex/test/tu-imagen:latest
       - --region=europe-west1
       - --platform=managed
+
+substitutions:
+  _LOCATION: var.location # must be substituted
+  
+  _SERVICE_NAME: var.service_name1
