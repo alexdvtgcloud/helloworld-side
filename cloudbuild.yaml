@@ -17,6 +17,4 @@ steps:
       - --platform=managed
 
 substitutions:
-  _LOCATION: var.location # must be substituted
-  
-  _SERVICE_NAME: var.service_name1
+  _SERVICE_NAME: wannabe
