@@ -17,4 +17,4 @@ steps:
       - --platform=managed
 
 substitutions:
-  _SERVICE_NAME: wannabe
+  _SERVICE_NAME: var.service_name1
